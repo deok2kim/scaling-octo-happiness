@@ -131,5 +131,14 @@ const baseServices: Service[] = [
   },
 ];
 
-// 서비스 리스트 export
-export const mockServices: Service[] = baseServices;
+// 서비스 리스트 export (1000개 이상으로 확장)
+export const mockServices: Service[] = Array.from(
+  { length: 150 },
+  (_, index) => {
+    const baseService = baseServices[index % baseServices.length];
+    return {
+      ...baseService,
+      id: `service-${index + 1}`,
+    };
+  }
+);
