@@ -1,20 +1,15 @@
 import { useState, useEffect } from "react";
 import type { Favorite } from "../../types";
 import FavoriteCard from "./FavoriteCard";
-import ItemCardSkeleton from "../common/ItemCardSkeleton";
 import LocalizedText from "../common/LocalizedText";
 import ConfirmDialog from "../Modal/ConfirmDialog";
 import "./FavoritesList.css";
 
 interface FavoritesListProps {
   favorites: Favorite[];
-  isLoading?: boolean;
 }
 
-function FavoritesList({
-  favorites: initialFavorites,
-  isLoading,
-}: FavoritesListProps) {
+function FavoritesList({ favorites: initialFavorites }: FavoritesListProps) {
   const [favorites, setFavorites] = useState(initialFavorites);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
@@ -36,21 +31,6 @@ function FavoritesList({
   const handleCancelDelete = () => {
     setDeleteTarget(null);
   };
-
-  if (isLoading) {
-    return (
-      <div className="favorites-section">
-        <h2 className="favorites-title">
-          <LocalizedText id="dapp_favorite_title" defaultMessage="즐겨찾기" />
-        </h2>
-        <div className="favorites-list">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <ItemCardSkeleton key={index} />
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   if (favorites.length === 0) {
     return null;

@@ -1,19 +1,26 @@
-import BannerSlider from "./components/Banner/BannerSlider";
-import FavoritesList from "./components/Favorites/FavoritesList";
+import { Suspense } from "react";
+import BannerSection from "./components/Banner/BannerSection";
+import BannerSkeleton from "./components/Banner/BannerSkeleton";
+import FavoritesSection from "./components/Favorites/FavoritesSection";
+import FavoritesSkeleton from "./components/Favorites/FavoritesSkeleton";
 import ServiceList from "./components/ServiceList/ServiceList";
-import { useBannersQuery } from "./hooks/useBannersQuery";
-import { useFavoritesQuery } from "./hooks/useFavoritesQuery";
+import ServiceListSkeleton from "./components/ServiceList/ServiceListSkeleton";
 import "./App.css";
 
 function App() {
-  const { data: banners, isLoading: bannersLoading } = useBannersQuery();
-  const { data: favorites, isLoading: favoritesLoading } = useFavoritesQuery();
-
   return (
     <div className="app">
-      <BannerSlider banners={banners || []} isLoading={bannersLoading} />
-      <FavoritesList favorites={favorites || []} isLoading={favoritesLoading} />
-      <ServiceList />
+      <Suspense fallback={<BannerSkeleton />}>
+        <BannerSection />
+      </Suspense>
+
+      <Suspense fallback={<FavoritesSkeleton />}>
+        <FavoritesSection />
+      </Suspense>
+
+      <Suspense fallback={<ServiceListSkeleton />}>
+        <ServiceList />
+      </Suspense>
     </div>
   );
 }

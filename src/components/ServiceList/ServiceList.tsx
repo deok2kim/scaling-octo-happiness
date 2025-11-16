@@ -12,7 +12,7 @@ function ServiceList() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useServicesQuery();
 
   const handleServiceClick = (service: Service) => {
@@ -55,23 +55,6 @@ function ServiceList() {
     isFetchingNextPage,
     fetchNextPage,
   ]);
-
-  if (isLoading) {
-    return (
-      <div className="service-list-section">
-        <div className="service-list-header">
-          <h2 className="service-list-title">
-            <LocalizedText id="dapp_list_title" defaultMessage="목록" />
-          </h2>
-        </div>
-        <div className="service-list-skeleton-container">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <ItemCardSkeleton key={index} />
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="service-list-section">
