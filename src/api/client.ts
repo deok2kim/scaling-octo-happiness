@@ -119,4 +119,20 @@ export const apiClient = {
     }
     return response.json();
   },
+
+  deleteFavorite: async (favoriteId: string): Promise<void> => {
+    if (config.isDevelopment) {
+      await delay(300);
+      // dev 환경에서는 성공으로 간주
+      return;
+    }
+
+    const response = await fetch(
+      `${config.apiBaseUrl}/api/favorites/${favoriteId}`,
+      { method: "DELETE" }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to delete favorite");
+    }
+  },
 };

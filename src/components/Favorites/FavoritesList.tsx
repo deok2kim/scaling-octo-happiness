@@ -1,21 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Favorite } from "../../types";
 import FavoriteCard from "./FavoriteCard";
 import LocalizedText from "../common/LocalizedText";
 import ConfirmDialog from "../Modal/ConfirmDialog";
+import { useFavoriteDeleteMutation } from "../../hooks/useFavoriteDeleteMutation";
 import "./FavoritesList.css";
 
 interface FavoritesListProps {
   favorites: Favorite[];
 }
 
-function FavoritesList({ favorites: initialFavorites }: FavoritesListProps) {
-  const [favorites, setFavorites] = useState(initialFavorites);
+function FavoritesList({ favorites }: FavoritesListProps) {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
-
-  useEffect(() => {
-    setFavorites(initialFavorites);
-  }, [initialFavorites]);
+  const deleteMutation = useFavoriteDeleteMutation();
 
   const handleDeleteClick = (id: string) => {
     setDeleteTarget(id);
@@ -23,7 +20,7 @@ function FavoritesList({ favorites: initialFavorites }: FavoritesListProps) {
 
   const handleConfirmDelete = () => {
     if (deleteTarget) {
-      setFavorites(favorites.filter((fav) => fav.id !== deleteTarget));
+      deleteMutation.mutate(deleteTarget);
       setDeleteTarget(null);
     }
   };
