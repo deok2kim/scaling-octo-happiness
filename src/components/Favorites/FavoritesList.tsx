@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import type { Favorite } from "../../types";
 import FavoriteCard from "./FavoriteCard";
 import ItemCardSkeleton from "../common/ItemCardSkeleton";
+import LocalizedText from "../common/LocalizedText";
 import ConfirmDialog from "../Modal/ConfirmDialog";
-import { useTranslation } from "../../hooks/useTranslation";
 import "./FavoritesList.css";
 
 interface FavoritesListProps {
@@ -15,7 +15,6 @@ function FavoritesList({
   favorites: initialFavorites,
   isLoading,
 }: FavoritesListProps) {
-  const { t } = useTranslation();
   const [favorites, setFavorites] = useState(initialFavorites);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
@@ -41,7 +40,9 @@ function FavoritesList({
   if (isLoading) {
     return (
       <div className="favorites-section">
-        <h2 className="favorites-title">{t("dapp_favorite_title")}</h2>
+        <h2 className="favorites-title">
+          <LocalizedText id="dapp_favorite_title" defaultMessage="즐겨찾기" />
+        </h2>
         <div className="favorites-list">
           {Array.from({ length: 3 }).map((_, index) => (
             <ItemCardSkeleton key={index} />
@@ -57,7 +58,9 @@ function FavoritesList({
 
   return (
     <div className="favorites-section">
-      <h2 className="favorites-title">{t("dapp_favorite_title")}</h2>
+      <h2 className="favorites-title">
+        <LocalizedText id="dapp_favorite_title" defaultMessage="즐겨찾기" />
+      </h2>
       <div className="favorites-list">
         {favorites.map((favorite) => (
           <FavoriteCard
@@ -69,7 +72,12 @@ function FavoritesList({
       </div>
       {deleteTarget && (
         <ConfirmDialog
-          message={t("dapp_favorite_delete_confirm")}
+          message={
+            <LocalizedText
+              id="dapp_favorite_delete_confirm"
+              defaultMessage="이 사이트를 즐겨찾기 목록에서 삭제 하시겠습니까?"
+            />
+          }
           onConfirm={handleConfirmDelete}
           onCancel={handleCancelDelete}
         />

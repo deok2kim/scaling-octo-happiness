@@ -3,13 +3,12 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import type { Service } from "../../types";
 import ServiceItem from "./ServiceItem";
 import ItemCardSkeleton from "../common/ItemCardSkeleton";
+import LocalizedText from "../common/LocalizedText";
 import ServiceDetailModal from "../Modal/ServiceDetailModal";
-import { useTranslation } from "../../hooks/useTranslation";
 import { useServicesQuery } from "../../hooks/useServicesQuery";
 import "./ServiceList.css";
 
 function ServiceList() {
-  const { t } = useTranslation();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +60,9 @@ function ServiceList() {
     return (
       <div className="service-list-section">
         <div className="service-list-header">
-          <h2 className="service-list-title">{t("dapp_list_title")}</h2>
+          <h2 className="service-list-title">
+            <LocalizedText id="dapp_list_title" defaultMessage="목록" />
+          </h2>
         </div>
         <div className="service-list-skeleton-container">
           {Array.from({ length: 10 }).map((_, index) => (
@@ -75,7 +76,9 @@ function ServiceList() {
   return (
     <div className="service-list-section">
       <div className="service-list-header">
-        <h2 className="service-list-title">{t("dapp_list_title")}</h2>
+        <h2 className="service-list-title">
+          <LocalizedText id="dapp_list_title" defaultMessage="목록" />
+        </h2>
       </div>
 
       <div

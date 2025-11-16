@@ -1,6 +1,6 @@
 import type { Favorite } from "../../types";
-import { useTranslation } from "../../hooks/useTranslation";
 import ItemCard from "../common/ItemCard";
+import LocalizedText from "../common/LocalizedText";
 import "./FavoriteCard.css";
 
 interface FavoriteCardProps {
@@ -9,8 +9,6 @@ interface FavoriteCardProps {
 }
 
 function FavoriteCard({ favorite, onDelete }: FavoriteCardProps) {
-  const { t } = useTranslation();
-
   const handleClick = () => {
     window.open(favorite.url, "_blank");
   };
@@ -29,7 +27,7 @@ function FavoriteCard({ favorite, onDelete }: FavoriteCardProps) {
       onClick={handleClick}
       rightElement={
         <button className="favorite-delete-button" onClick={handleDelete}>
-          {t("dapp_favorite_delete")}
+          <LocalizedText id="dapp_favorite_delete" defaultMessage="삭제" />
         </button>
       }
     />

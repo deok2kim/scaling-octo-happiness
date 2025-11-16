@@ -1,5 +1,7 @@
 import type { Service } from "../../types";
-import { useTranslation } from "../../hooks/useTranslation";
+import { useLanguage } from "../../contexts/LanguageContext";
+import LocalizedText from "../common/LocalizedText";
+import OptimizedImage from "../common/OptimizedImage";
 import "./ServiceDetailModal.css";
 
 interface ServiceDetailModalProps {
@@ -8,7 +10,7 @@ interface ServiceDetailModalProps {
 }
 
 function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
-  const { t, language } = useTranslation();
+  const { language } = useLanguage();
 
   const handleGoToService = () => {
     window.open(service.url, "_blank");
@@ -23,10 +25,11 @@ function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
 
         <div className="modal-header">
           <div className="modal-icon-wrapper">
-            <img
+            <OptimizedImage
               src={service.iconUrl}
               alt={service.name}
               className="modal-icon"
+              loading="eager"
             />
           </div>
           <div className="modal-title-section">
@@ -45,7 +48,7 @@ function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
 
         <div className="modal-footer">
           <button className="modal-go-button" onClick={handleGoToService}>
-            {t("go_to_dapp")}
+            <LocalizedText id="go_to_dapp" defaultMessage="서비스 바로가기" />
           </button>
         </div>
       </div>

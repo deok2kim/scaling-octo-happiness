@@ -1,27 +1,28 @@
-import { useTranslation } from "../../hooks/useTranslation";
+import type { ReactNode } from "react";
+import LocalizedText from "../common/LocalizedText";
 import "./ConfirmDialog.css";
 
 interface ConfirmDialogProps {
-  message: string;
+  message: ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
 function ConfirmDialog({ message, onConfirm, onCancel }: ConfirmDialogProps) {
-  const { t } = useTranslation();
-
   return (
     <div className="dialog-overlay" onClick={onCancel}>
       <div className="dialog-content" onClick={(e) => e.stopPropagation()}>
-        <h3 className="dialog-title">{t("dapp_favorite_title")}</h3>
+        <h3 className="dialog-title">
+          <LocalizedText id="dapp_favorite_title" defaultMessage="즐겨찾기" />
+        </h3>
         <div className="dialog-divider" />
         <p className="dialog-message">{message}</p>
         <div className="dialog-actions">
           <button className="dialog-button dialog-cancel" onClick={onCancel}>
-            {t("button_cancel")}
+            <LocalizedText id="button_cancel" defaultMessage="취소" />
           </button>
           <button className="dialog-button dialog-confirm" onClick={onConfirm}>
-            {t("button_confirm")}
+            <LocalizedText id="button_confirm" defaultMessage="확인" />
           </button>
         </div>
       </div>
