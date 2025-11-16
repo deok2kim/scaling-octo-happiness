@@ -18,6 +18,7 @@ interface ApiParams {
 interface ServicesParams extends ApiParams {
   page?: number;
   size?: number;
+  search?: string;
 }
 
 interface ServicesResponse {
@@ -76,11 +77,12 @@ export const apiClient = {
     language,
     page = 1,
     size = 20,
+    search = "",
   }: ServicesParams): Promise<ServicesResponse> => {
     if (config.isDevelopment) {
       await delay(1000);
       // dev 환경에서는 필터링된 mock 데이터 반환
-      const filtered = mockServices.filter(
+      let filtered = mockServices.filter(
         (service) =>
           service.supportedPlatforms.includes(platform) &&
           service.supportedLanguages.includes(language) &&
@@ -88,6 +90,28 @@ export const apiClient = {
             config.environment as "development" | "staging" | "production"
           )
       );
+
+      // 검색어가 있으면 추가 필터링
+      if (search.trim()) {
+        const keyword = search.toLowerCase();
+        filtered = filtered.filter((service) => {
+          const nameMatch = service.name.toLowerCase().includes(keyword);
+          const descMatch = service.description[language]
+            .toLowerCase()
+            .includes(keyword);
+          return nameMatch || descMatch;
+        });
+      }
+
+      // 필터링 결과가 없으면 빈 응답 반환
+      if (filtered.length === 0) {
+        return {
+          data: [],
+          hasMore: false,
+          nextPage: null,
+          total: 0,
+        };
+      }
 
       // 무한 스크롤 테스트를 위해 데이터를 반복해서 생성 (총 100개)
       const repeatedData = Array.from(
@@ -111,8 +135,9 @@ export const apiClient = {
       };
     }
 
+    const searchParam = search ? `&search=${encodeURIComponent(search)}` : "";
     const response = await fetch(
-      `${config.apiBaseUrl}/api/services?platform=${platform}&lang=${language}&page=${page}&size=${size}`
+      `${config.apiBaseUrl}/api/services?platform=${platform}&lang=${language}&page=${page}&size=${size}${searchParam}`
     );
     if (!response.ok) {
       throw new Error("Failed to fetch services");

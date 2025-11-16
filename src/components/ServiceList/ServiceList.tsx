@@ -8,12 +8,16 @@ import ServiceDetailModal from "../Modal/ServiceDetailModal";
 import { useServicesQuery } from "../../hooks/useServicesQuery";
 import "./ServiceList.css";
 
-function ServiceList() {
+interface ServiceListProps {
+  searchKeyword: string;
+}
+
+function ServiceList({ searchKeyword }: ServiceListProps) {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useServicesQuery();
+    useServicesQuery({ search: searchKeyword });
 
   const handleServiceClick = useCallback((service: Service) => {
     setSelectedService(service);
@@ -23,7 +27,6 @@ function ServiceList() {
     setSelectedService(null);
   }, []);
 
-  // 모든 페이지의 데이터를 평탄화
   const allServices = useMemo(
     () => data?.pages.flatMap((page) => page.data) ?? [],
     [data]
@@ -77,38 +80,49 @@ function ServiceList() {
           overflow: "auto",
         }}
       >
-        <div
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-            width: "100%",
-            position: "relative",
-          }}
-        >
-          {virtualItems.map((virtualItem) => {
-            const service = allServices[virtualItem.index];
-            return (
-              <div
-                key={virtualItem.key}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: `${virtualItem.size}px`,
-                  transform: `translateY(${virtualItem.start}px)`,
-                }}
-              >
-                <ServiceItem service={service} onClick={handleServiceClick} />
-              </div>
-            );
-          })}
-        </div>
-        {isFetchingNextPage && (
-          <div className="service-list-skeleton-more">
-            {Array.from({ length: 2 }).map((_, index) => (
-              <ItemCardSkeleton key={`loading-${index}`} />
-            ))}
+        {allServices.length === 0 ? (
+          <div className="service-list-empty">
+            <p>검색 결과가 없습니다</p>
           </div>
+        ) : (
+          <>
+            <div
+              style={{
+                height: `${virtualizer.getTotalSize()}px`,
+                width: "100%",
+                position: "relative",
+              }}
+            >
+              {virtualItems.map((virtualItem) => {
+                const service = allServices[virtualItem.index];
+                return (
+                  <div
+                    key={virtualItem.key}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: `${virtualItem.size}px`,
+                      transform: `translateY(${virtualItem.start}px)`,
+                    }}
+                  >
+                    <ServiceItem
+                      service={service}
+                      onClick={handleServiceClick}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            {isFetchingNextPage && (
+              <div className="service-list-skeleton-more">
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <ItemCardSkeleton key={`loading-${index}`} />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 

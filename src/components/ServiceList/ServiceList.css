@@ -27,3 +27,17 @@
   background-color: white;
 }
 
+.service-list-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px 20px;
+}
+
+.service-list-empty p {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+

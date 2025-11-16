@@ -3,6 +3,10 @@
   background-color: #ffffff;
 }
 
+.app-content {
+  padding-top: 60px; /* SearchBar 높이만큼 여백 */
+}
+
 .app-loading {
   display: flex;
   align-items: center;
