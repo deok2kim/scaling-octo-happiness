@@ -1,5 +1,6 @@
 import type { Favorite } from "../../types";
 import { useTranslation } from "../../hooks/useTranslation";
+import ItemCard from "../common/ItemCard";
 import "./FavoriteCard.css";
 
 interface FavoriteCardProps {
@@ -20,22 +21,18 @@ function FavoriteCard({ favorite, onDelete }: FavoriteCardProps) {
   };
 
   return (
-    <div className="favorite-card" onClick={handleClick}>
-      <div className="favorite-icon-wrapper">
-        <img
-          src={favorite.iconUrl}
-          alt={favorite.name}
-          className="favorite-icon"
-        />
-      </div>
-      <div className="favorite-info">
-        <h3 className="favorite-name">{favorite.name}</h3>
-        <p className="favorite-url">{favorite.url}</p>
-      </div>
-      <button className="favorite-delete" onClick={handleDelete}>
-        {t("dapp_favorite_delete")}
-      </button>
-    </div>
+    <ItemCard
+      iconUrl={favorite.iconUrl}
+      iconAlt={favorite.name}
+      title={favorite.name}
+      subtitle={favorite.url}
+      onClick={handleClick}
+      rightElement={
+        <button className="favorite-delete-button" onClick={handleDelete}>
+          {t("dapp_favorite_delete")}
+        </button>
+      }
+    />
   );
 }
 

@@ -9,14 +9,10 @@ function App() {
   const { data: banners, isLoading: bannersLoading } = useBannersQuery();
   const { data: favorites, isLoading: favoritesLoading } = useFavoritesQuery();
 
-  if (bannersLoading || favoritesLoading) {
-    return <div className="app-loading">Loading...</div>;
-  }
-
   return (
     <div className="app">
-      {banners && <BannerSlider banners={banners} />}
-      {favorites && <FavoritesList favorites={favorites} />}
+      <BannerSlider banners={banners || []} isLoading={bannersLoading} />
+      <FavoritesList favorites={favorites || []} isLoading={favoritesLoading} />
       <ServiceList />
     </div>
   );

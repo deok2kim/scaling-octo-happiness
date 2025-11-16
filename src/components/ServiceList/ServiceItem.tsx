@@ -1,6 +1,6 @@
 import type { Service } from "../../types";
 import { useLanguage } from "../../contexts/LanguageContext";
-import "./ServiceItem.css";
+import ItemCard from "../common/ItemCard";
 
 interface ServiceItemProps {
   service: Service;
@@ -15,17 +15,14 @@ function ServiceItem({ service, onClick }: ServiceItemProps) {
   };
 
   return (
-    <div className="service-item" onClick={handleClick}>
-      <div className="service-icon-wrapper">
-        <img src={service.iconUrl} alt={service.name} className="service-icon" />
-      </div>
-      <div className="service-info">
-        <h3 className="service-name">{service.name}</h3>
-        <p className="service-description">{service.description[language]}</p>
-      </div>
-    </div>
+    <ItemCard
+      iconUrl={service.iconUrl}
+      iconAlt={service.name}
+      title={service.name}
+      subtitle={service.description[language]}
+      onClick={handleClick}
+    />
   );
 }
 
 export default ServiceItem;
-

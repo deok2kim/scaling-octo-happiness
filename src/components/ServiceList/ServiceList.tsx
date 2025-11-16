@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { Service } from "../../types";
 import ServiceItem from "./ServiceItem";
+import ItemCardSkeleton from "../common/ItemCardSkeleton";
 import ServiceDetailModal from "../Modal/ServiceDetailModal";
 import { useTranslation } from "../../hooks/useTranslation";
 import { useServicesQuery } from "../../hooks/useServicesQuery";
@@ -62,7 +63,11 @@ function ServiceList() {
         <div className="service-list-header">
           <h2 className="service-list-title">{t("dapp_list_title")}</h2>
         </div>
-        <div className="service-list-loading">Loading...</div>
+        <div className="service-list-skeleton-container">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <ItemCardSkeleton key={index} />
+          ))}
+        </div>
       </div>
     );
   }
@@ -108,7 +113,11 @@ function ServiceList() {
           })}
         </div>
         {isFetchingNextPage && (
-          <div className="service-list-loading-more">Loading more...</div>
+          <div className="service-list-skeleton-more">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <ItemCardSkeleton key={`loading-${index}`} />
+            ))}
+          </div>
         )}
       </div>
 

@@ -3,14 +3,24 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import BannerItem from './BannerItem';
+import BannerSkeleton from './BannerSkeleton';
 import { Banner } from '../../types';
 import './BannerSlider.css';
 
 interface BannerSliderProps {
   banners: Banner[];
+  isLoading?: boolean;
 }
 
-function BannerSlider({ banners }: BannerSliderProps) {
+function BannerSlider({ banners, isLoading }: BannerSliderProps) {
+  if (isLoading) {
+    return (
+      <div className="banner-slider">
+        <BannerSkeleton />
+      </div>
+    );
+  }
+
   return (
     <div className="banner-slider">
       <Swiper

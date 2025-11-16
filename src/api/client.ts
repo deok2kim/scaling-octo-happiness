@@ -53,7 +53,7 @@ export const apiClient = {
     language,
   }: ApiParams): Promise<Favorite[]> => {
     if (config.isDevelopment) {
-      await delay(300);
+      await delay(1000);
       // dev 환경에서는 필터링된 mock 데이터 반환
       return mockFavorites.filter(
         (favorite) =>
@@ -78,7 +78,7 @@ export const apiClient = {
     size = 20,
   }: ServicesParams): Promise<ServicesResponse> => {
     if (config.isDevelopment) {
-      await delay(800);
+      await delay(1000);
       // dev 환경에서는 필터링된 mock 데이터 반환
       const filtered = mockServices.filter(
         (service) =>
