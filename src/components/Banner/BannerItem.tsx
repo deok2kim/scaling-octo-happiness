@@ -1,4 +1,5 @@
 import type { Banner } from "../../types";
+import OptimizedImage from "../common/OptimizedImage";
 import "./BannerItem.css";
 
 interface BannerItemProps {
@@ -12,7 +13,12 @@ function BannerItem({ banner }: BannerItemProps) {
 
   return (
     <div className="banner-item" onClick={handleClick}>
-      <img src={banner.imageUrl} alt="banner" className="banner-image" />
+      <OptimizedImage
+        src={banner.imageUrl}
+        alt="banner"
+        className="banner-image"
+        loading="eager"
+      />
       <div className="banner-content">
         {banner.description && (
           <p className="banner-description">{banner.description}</p>

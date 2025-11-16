@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import OptimizedImage from "./OptimizedImage";
 import "./ItemCard.css";
 
 interface ItemCardProps {
@@ -21,7 +22,12 @@ function ItemCard({
   return (
     <div className="item-card" onClick={onClick}>
       <div className="item-icon-wrapper">
-        <img src={iconUrl} alt={iconAlt} className="item-icon" />
+        <OptimizedImage
+          src={iconUrl}
+          alt={iconAlt}
+          className="item-icon"
+          loading="lazy"
+        />
       </div>
       <div className="item-info">
         <h3 className="item-title">{title}</h3>
@@ -33,4 +39,3 @@ function ItemCard({
 }
 
 export default ItemCard;
-
