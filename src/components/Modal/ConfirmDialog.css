@@ -1,0 +1,84 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.dialog-content {
+  background: white;
+  border-radius: 16px;
+  max-width: 320px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dialog-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.dialog-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+.dialog-message {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+}
+
+.dialog-actions {
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+}
+
+.dialog-button {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  background-color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dialog-button:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.dialog-cancel {
+  color: #666;
+}
+
+.dialog-cancel:hover {
+  background-color: #f9f9f9;
+}
+
+.dialog-confirm {
+  color: #007aff;
+}
+
+.dialog-confirm:hover {
+  background-color: #f9f9f9;
+}
+
+.dialog-button:active {
+  background-color: #f0f0f0;
+}
