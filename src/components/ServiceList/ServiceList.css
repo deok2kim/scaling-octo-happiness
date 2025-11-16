@@ -1,0 +1,21 @@
+.service-list-section {
+  background-color: white;
+  padding-bottom: 20px;
+}
+
+.service-list-header {
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.service-list-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.service-list-container {
+  background-color: white;
+}
+
