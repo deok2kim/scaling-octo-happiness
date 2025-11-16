@@ -15,6 +15,18 @@ interface ApiParams {
   language: Language;
 }
 
+interface ServicesParams extends ApiParams {
+  page?: number;
+  size?: number;
+}
+
+interface ServicesResponse {
+  data: Service[];
+  hasMore: boolean;
+  nextPage: number | null;
+  total: number;
+}
+
 export const apiClient = {
   getBanners: async ({ platform, language }: ApiParams): Promise<Banner[]> => {
     if (config.isDevelopment) {
@@ -62,11 +74,13 @@ export const apiClient = {
   getServices: async ({
     platform,
     language,
-  }: ApiParams): Promise<Service[]> => {
+    page = 1,
+    size = 20,
+  }: ServicesParams): Promise<ServicesResponse> => {
     if (config.isDevelopment) {
       await delay(800);
       // dev 환경에서는 필터링된 mock 데이터 반환
-      return mockServices.filter(
+      const filtered = mockServices.filter(
         (service) =>
           service.supportedPlatforms.includes(platform) &&
           service.supportedLanguages.includes(language) &&
@@ -74,10 +88,31 @@ export const apiClient = {
             config.environment as "development" | "staging" | "production"
           )
       );
+
+      // 무한 스크롤 테스트를 위해 데이터를 반복해서 생성 (총 100개)
+      const repeatedData = Array.from(
+        { length: Math.ceil(100 / filtered.length) },
+        () => filtered
+      )
+        .flat()
+        .slice(0, 100)
+        .map((service, index) => ({ ...service, id: `service-${index + 1}` }));
+
+      const start = (page - 1) * size;
+      const end = start + size;
+      const paginatedData = repeatedData.slice(start, end);
+      const hasMore = end < repeatedData.length;
+
+      return {
+        data: paginatedData,
+        hasMore,
+        nextPage: hasMore ? page + 1 : null,
+        total: repeatedData.length,
+      };
     }
 
     const response = await fetch(
-      `${config.apiBaseUrl}/api/services?platform=${platform}&lang=${language}`
+      `${config.apiBaseUrl}/api/services?platform=${platform}&lang=${language}&page=${page}&size=${size}`
     );
     if (!response.ok) {
       throw new Error("Failed to fetch services");

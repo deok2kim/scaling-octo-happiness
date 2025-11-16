@@ -3,7 +3,7 @@ import type { Service } from "../types";
 const IMAGE_BASE =
   "https://raw.githubusercontent.com/KyungeunKim/iotrust-frontend-homework/main/images";
 
-const baseServices: Service[] = [
+export const mockServices: Service[] = [
   {
     id: "service-1",
     name: "MoonPay",
@@ -130,15 +130,3 @@ const baseServices: Service[] = [
     supportedEnvironments: ["development", "staging", "production"],
   },
 ];
-
-// 서비스 리스트 export (1000개 이상으로 확장)
-export const mockServices: Service[] = Array.from(
-  { length: 150 },
-  (_, index) => {
-    const baseService = baseServices[index % baseServices.length];
-    return {
-      ...baseService,
-      id: `service-${index + 1}`,
-    };
-  }
-);

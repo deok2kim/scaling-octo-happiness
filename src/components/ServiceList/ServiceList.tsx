@@ -1,19 +1,19 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { Service } from "../../types";
 import ServiceItem from "./ServiceItem";
 import ServiceDetailModal from "../Modal/ServiceDetailModal";
 import { useTranslation } from "../../hooks/useTranslation";
+import { useServicesQuery } from "../../hooks/useServicesQuery";
 import "./ServiceList.css";
 
-interface ServiceListProps {
-  services: Service[];
-}
-
-function ServiceList({ services }: ServiceListProps) {
+function ServiceList() {
   const { t } = useTranslation();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const parentRef = useRef<HTMLDivElement>(null);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useServicesQuery();
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
@@ -23,14 +23,49 @@ function ServiceList({ services }: ServiceListProps) {
     setSelectedService(null);
   };
 
+  // 모든 페이지의 데이터를 평탄화
+  const allServices = data?.pages.flatMap((page) => page.data) ?? [];
+
   // TanStack Virtual 설정 (컨테이너 스크롤)
   // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
-    count: services.length,
+    count: allServices.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 80,
     overscan: 5,
   });
+
+  // 무한 스크롤: 끝에 도달하면 다음 페이지 로드
+  useEffect(() => {
+    const lastItem = virtualizer.getVirtualItems().at(-1);
+
+    if (!lastItem) return;
+
+    if (
+      lastItem.index >= allServices.length - 1 &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage();
+    }
+  }, [
+    virtualizer.getVirtualItems(),
+    allServices.length,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  ]);
+
+  if (isLoading) {
+    return (
+      <div className="service-list-section">
+        <div className="service-list-header">
+          <h2 className="service-list-title">{t("dapp_list_title")}</h2>
+        </div>
+        <div className="service-list-loading">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="service-list-section">
@@ -54,7 +89,7 @@ function ServiceList({ services }: ServiceListProps) {
           }}
         >
           {virtualizer.getVirtualItems().map((virtualItem) => {
-            const service = services[virtualItem.index];
+            const service = allServices[virtualItem.index];
             return (
               <div
                 key={virtualItem.key}
@@ -72,6 +107,9 @@ function ServiceList({ services }: ServiceListProps) {
             );
           })}
         </div>
+        {isFetchingNextPage && (
+          <div className="service-list-loading-more">Loading more...</div>
+        )}
       </div>
 
       {selectedService && (
