@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { Service } from "../../types";
 import ServiceItem from "./ServiceItem";
@@ -15,16 +15,19 @@ function ServiceList() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useServicesQuery();
 
-  const handleServiceClick = (service: Service) => {
+  const handleServiceClick = useCallback((service: Service) => {
     setSelectedService(service);
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setSelectedService(null);
-  };
+  }, []);
 
   // 모든 페이지의 데이터를 평탄화
-  const allServices = data?.pages.flatMap((page) => page.data) ?? [];
+  const allServices = useMemo(
+    () => data?.pages.flatMap((page) => page.data) ?? [],
+    [data]
+  );
 
   // TanStack Virtual 설정 (컨테이너 스크롤)
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -35,9 +38,11 @@ function ServiceList() {
     overscan: 5,
   });
 
+  const virtualItems = virtualizer.getVirtualItems();
+
   // 무한 스크롤: 끝에 도달하면 다음 페이지 로드
   useEffect(() => {
-    const lastItem = virtualizer.getVirtualItems().at(-1);
+    const lastItem = virtualItems.at(-1);
 
     if (!lastItem) return;
 
@@ -49,7 +54,7 @@ function ServiceList() {
       fetchNextPage();
     }
   }, [
-    virtualizer.getVirtualItems(),
+    virtualItems,
     allServices.length,
     hasNextPage,
     isFetchingNextPage,
@@ -79,7 +84,7 @@ function ServiceList() {
             position: "relative",
           }}
         >
-          {virtualizer.getVirtualItems().map((virtualItem) => {
+          {virtualItems.map((virtualItem) => {
             const service = allServices[virtualItem.index];
             return (
               <div
@@ -100,7 +105,7 @@ function ServiceList() {
         </div>
         {isFetchingNextPage && (
           <div className="service-list-skeleton-more">
-            {Array.from({ length: 3 }).map((_, index) => (
+            {Array.from({ length: 2 }).map((_, index) => (
               <ItemCardSkeleton key={`loading-${index}`} />
             ))}
           </div>

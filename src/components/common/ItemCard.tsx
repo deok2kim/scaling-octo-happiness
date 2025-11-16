@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import OptimizedImage from "./OptimizedImage";
 import "./ItemCard.css";
 
@@ -38,4 +38,4 @@ function ItemCard({
   );
 }
 
-export default ItemCard;
+export default memo(ItemCard);

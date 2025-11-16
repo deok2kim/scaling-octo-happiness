@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { Favorite } from "../../types";
 import FavoriteCard from "./FavoriteCard";
 import LocalizedText from "../common/LocalizedText";
@@ -14,9 +14,9 @@ function FavoritesList({ favorites }: FavoritesListProps) {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const deleteMutation = useFavoriteDeleteMutation();
 
-  const handleDeleteClick = (id: string) => {
+  const handleDeleteClick = useCallback((id: string) => {
     setDeleteTarget(id);
-  };
+  }, []);
 
   const handleConfirmDelete = () => {
     if (deleteTarget) {

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { Service } from "../../types";
 import { useLanguage } from "../../contexts/LanguageContext";
 import ItemCard from "../common/ItemCard";
@@ -25,4 +26,4 @@ function ServiceItem({ service, onClick }: ServiceItemProps) {
   );
 }
 
-export default ServiceItem;
+export default memo(ServiceItem);

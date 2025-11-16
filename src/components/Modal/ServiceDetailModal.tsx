@@ -3,6 +3,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import LocalizedText from "../common/LocalizedText";
 import OptimizedImage from "../common/OptimizedImage";
 import "./ServiceDetailModal.css";
+import { memo } from "react";
 
 interface ServiceDetailModalProps {
   service: Service;
@@ -56,4 +57,4 @@ function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
   );
 }
 
-export default ServiceDetailModal;
+export default memo(ServiceDetailModal);

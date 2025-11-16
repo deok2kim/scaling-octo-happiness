@@ -1,3 +1,4 @@
+import { memo, useCallback } from "react";
 import type { Favorite } from "../../types";
 import ItemCard from "../common/ItemCard";
 import LocalizedText from "../common/LocalizedText";
@@ -9,14 +10,17 @@ interface FavoriteCardProps {
 }
 
 function FavoriteCard({ favorite, onDelete }: FavoriteCardProps) {
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     window.open(favorite.url, "_blank");
-  };
+  }, [favorite.url]);
 
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onDelete(favorite.id);
-  };
+  const handleDelete = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      onDelete(favorite.id);
+    },
+    [favorite.id, onDelete]
+  );
 
   return (
     <ItemCard
@@ -34,4 +38,4 @@ function FavoriteCard({ favorite, onDelete }: FavoriteCardProps) {
   );
 }
 
-export default FavoriteCard;
+export default memo(FavoriteCard);
