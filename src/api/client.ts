@@ -55,6 +55,10 @@ export const apiClient = {
   }: ApiParams): Promise<Favorite[]> => {
     if (config.isDevelopment) {
       await delay(1000);
+      // dev 환경에서는 50% 확률로 실패
+      if (Math.random() < 0.5) {
+        throw new Error("즐겨찾기 목록을 불러오는데 실패했습니다");
+      }
       // dev 환경에서는 필터링된 mock 데이터 반환
       return mockFavorites.filter(
         (favorite) =>

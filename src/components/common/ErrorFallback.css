@@ -1,0 +1,40 @@
+.error-fallback {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.error-fallback h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 12px;
+}
+
+.error-message {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.error-retry-button {
+  padding: 10px 24px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.error-retry-button:hover {
+  background-color: #2563eb;
+}
+
+.error-retry-button:active {
+  background-color: #1d4ed8;
+}
+

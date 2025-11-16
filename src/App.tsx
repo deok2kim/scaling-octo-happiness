@@ -1,4 +1,5 @@
 import { Suspense, useState, useCallback } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import BannerSection from "./components/Banner/BannerSection";
 import BannerSkeleton from "./components/Banner/BannerSkeleton";
 import FavoritesSection from "./components/Favorites/FavoritesSection";
@@ -7,6 +8,7 @@ import ServiceList from "./components/ServiceList/ServiceList";
 import ServiceListSkeleton from "./components/ServiceList/ServiceListSkeleton";
 import SearchBar from "./components/ServiceList/SearchBar";
 import ToastContainer from "./components/common/ToastContainer";
+import ErrorFallback from "./components/common/ErrorFallback";
 import "./App.css";
 
 function App() {
@@ -24,17 +26,23 @@ function App() {
       />
 
       <div className="app-content">
-        <Suspense fallback={<BannerSkeleton />}>
-          <BannerSection />
-        </Suspense>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<BannerSkeleton />}>
+            <BannerSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<FavoritesSkeleton />}>
-          <FavoritesSection />
-        </Suspense>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<FavoritesSkeleton />}>
+            <FavoritesSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<ServiceListSkeleton />}>
-          <ServiceList searchKeyword={searchKeyword} />
-        </Suspense>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<ServiceListSkeleton />}>
+            <ServiceList searchKeyword={searchKeyword} />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       <ToastContainer />

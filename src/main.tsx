@@ -7,7 +7,13 @@ import { ToastProvider } from "./contexts/ToastContext";
 import "./index.css";
 import App from "./App.tsx";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0, // 에러 발생 시 재시도 없음 (ErrorBoundary로 바로 전달)
+    },
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
