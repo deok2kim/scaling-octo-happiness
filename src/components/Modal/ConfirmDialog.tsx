@@ -1,4 +1,4 @@
-import { TEXTS } from "../../constants";
+import { useTranslation } from "../../hooks/useTranslation";
 import "./ConfirmDialog.css";
 
 interface ConfirmDialogProps {
@@ -8,18 +8,20 @@ interface ConfirmDialogProps {
 }
 
 function ConfirmDialog({ message, onConfirm, onCancel }: ConfirmDialogProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="dialog-overlay" onClick={onCancel}>
       <div className="dialog-content" onClick={(e) => e.stopPropagation()}>
-        <h3 className="dialog-title">즐겨찾기 삭제</h3>
+        <h3 className="dialog-title">{t("dapp_favorite_title")}</h3>
         <div className="dialog-divider" />
         <p className="dialog-message">{message}</p>
         <div className="dialog-actions">
           <button className="dialog-button dialog-cancel" onClick={onCancel}>
-            {TEXTS.CANCEL}
+            {t("button_cancel")}
           </button>
           <button className="dialog-button dialog-confirm" onClick={onConfirm}>
-            {TEXTS.CONFIRM}
+            {t("button_confirm")}
           </button>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Favorite } from "../../types";
 import FavoriteCard from "./FavoriteCard";
 import ConfirmDialog from "../Modal/ConfirmDialog";
-import { TEXTS } from "../../constants";
+import { useTranslation } from "../../hooks/useTranslation";
 import "./FavoritesList.css";
 
 interface FavoritesListProps {
@@ -10,6 +10,7 @@ interface FavoritesListProps {
 }
 
 function FavoritesList({ favorites: initialFavorites }: FavoritesListProps) {
+  const { t } = useTranslation();
   const [favorites, setFavorites] = useState(initialFavorites);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
@@ -34,7 +35,7 @@ function FavoritesList({ favorites: initialFavorites }: FavoritesListProps) {
 
   return (
     <div className="favorites-section">
-      <h2 className="favorites-title">{TEXTS.FAVORITES_TITLE}</h2>
+      <h2 className="favorites-title">{t("dapp_favorite_title")}</h2>
       <div className="favorites-list">
         {favorites.map((favorite) => (
           <FavoriteCard
@@ -46,7 +47,7 @@ function FavoritesList({ favorites: initialFavorites }: FavoritesListProps) {
       </div>
       {deleteTarget && (
         <ConfirmDialog
-          message={TEXTS.DELETE_CONFIRM}
+          message={t("dapp_favorite_delete_confirm")}
           onConfirm={handleConfirmDelete}
           onCancel={handleCancelDelete}
         />

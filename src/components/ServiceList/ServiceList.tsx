@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Service } from "../../types";
 import ServiceItem from "./ServiceItem";
 import ServiceDetailModal from "../Modal/ServiceDetailModal";
-import { TEXTS } from "../../constants";
+import { useTranslation } from "../../hooks/useTranslation";
 import "./ServiceList.css";
 
 interface ServiceListProps {
@@ -10,6 +10,7 @@ interface ServiceListProps {
 }
 
 function ServiceList({ services }: ServiceListProps) {
+  const { t } = useTranslation();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   const handleServiceClick = (service: Service) => {
@@ -23,7 +24,7 @@ function ServiceList({ services }: ServiceListProps) {
   return (
     <div className="service-list-section">
       <div className="service-list-header">
-        <h2 className="service-list-title">{TEXTS.LIST_TITLE}</h2>
+        <h2 className="service-list-title">{t("dapp_list_title")}</h2>
       </div>
 
       <div className="service-list-container">

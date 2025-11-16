@@ -1,4 +1,5 @@
 import type { Service } from "../../types";
+import { useLanguage } from "../../contexts/LanguageContext";
 import "./ServiceItem.css";
 
 interface ServiceItemProps {
@@ -7,6 +8,8 @@ interface ServiceItemProps {
 }
 
 function ServiceItem({ service, onClick }: ServiceItemProps) {
+  const { language } = useLanguage();
+
   const handleClick = () => {
     onClick(service);
   };
@@ -18,7 +21,7 @@ function ServiceItem({ service, onClick }: ServiceItemProps) {
       </div>
       <div className="service-info">
         <h3 className="service-name">{service.name}</h3>
-        <p className="service-description">{service.description}</p>
+        <p className="service-description">{service.description[language]}</p>
       </div>
     </div>
   );

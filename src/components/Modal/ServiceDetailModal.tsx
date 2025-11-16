@@ -1,4 +1,5 @@
 import type { Service } from "../../types";
+import { useTranslation } from "../../hooks/useTranslation";
 import "./ServiceDetailModal.css";
 
 interface ServiceDetailModalProps {
@@ -7,6 +8,8 @@ interface ServiceDetailModalProps {
 }
 
 function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
+  const { t, language } = useTranslation();
+
   const handleGoToService = () => {
     window.open(service.url, "_blank");
   };
@@ -37,12 +40,12 @@ function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
         <div className="modal-body">
           <p className="modal-url">{service.url}</p>
           <h3 className="modal-section-title">Description</h3>
-          <p className="modal-description">{service.description}</p>
+          <p className="modal-description">{service.description[language]}</p>
         </div>
 
         <div className="modal-footer">
           <button className="modal-go-button" onClick={handleGoToService}>
-            Go
+            {t("go_to_dapp")}
           </button>
         </div>
       </div>

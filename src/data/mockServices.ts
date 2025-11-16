@@ -7,86 +7,127 @@ const baseServices: Service[] = [
   {
     id: "service-1",
     name: "MoonPay",
-    description:
-      "MoonPay offers simple and safer way to buy crypto instantly using VISA/Mastercard payment",
+    description: {
+      ko: "MoonPay는 VISA/Mastercard 결제를 사용하여 즉시 암호화폐를 구매할 수 있는 간단하고 안전한 방법을 제공합니다",
+      en: "MoonPay offers simple and safer way to buy crypto instantly using VISA/Mastercard payment",
+    },
     iconUrl: `${IMAGE_BASE}/icon_moonpay.png`,
     url: "https://buy.moonpay.com",
-    platforms: ["ios"],
-    languages: ["en"],
+    supportedPlatforms: ["ios"],
+    supportedLanguages: ["en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-2",
     name: "FTSO Portal",
-    description:
-      "FTSO Portal은 사용자가 원하는 FTSO provider에 Vote Power 쉽고 빠르게 위임할 수 있는 기능을 제공하는 디센트의 서비스입니다. 사용자는 Vote Power 위임을 통해 패시브인컴(passive income)을 보상으로 받을 수 있습니다.",
+    description: {
+      ko: "FTSO Portal은 사용자가 원하는 FTSO provider에 Vote Power 쉽고 빠르게 위임할 수 있는 기능을 제공하는 디센트의 서비스입니다. 사용자는 Vote Power 위임을 통해 패시브인컴(passive income)을 보상으로 받을 수 있습니다.",
+      en: "FTSO Portal is a service by D'CENT to provide fast and easy way to delegate Vote Power to the user's favorite FTSO provider. By delegating Vote Power, users can earn passive income as reward.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_ftso.png`,
     url: "https://ftsoportal.com/",
     networks: ["Songbird", "Flare"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-3",
     name: "Astar Portal",
-    description:
-      "아스타포탈은 Astar Network에서 제공하는 모든 것을 사용하기 위한 Astar Network의 공식 애플리케이션입니다.",
+    description: {
+      ko: "아스타포탈은 Astar Network에서 제공하는 모든 것을 사용하기 위한 Astar Network의 공식 애플리케이션입니다.",
+      en: "Astar Portal is the official Astar Network application for using everything that Astar Network offers.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_astar.png`,
     url: "https://portal.astar.network/",
     networks: ["Astar"],
-    environments: ["dev", "stage"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging"],
   },
   {
     id: "service-4",
     name: "1inch",
-    description:
-      "1inch는 모든 주요 DEX 거래소의 유동성과 가격 정보를 하나의 플랫폼에서 제공합니다. 원하는 거래의 가격을 쉽게 조회하여 토큰을 교환할 수 있습니다.",
+    description: {
+      ko: "1inch는 모든 주요 DEX 거래소의 유동성과 가격 정보를 하나의 플랫폼에서 제공합니다. 원하는 거래의 가격을 쉽게 조회하여 토큰을 교환할 수 있습니다.",
+      en: "1inch is a decentralized exchange (DEX) aggregator. It's designed to roll liquidity and pricing from all major DEXes into one platform, making it easy to get the best price for the desired trade.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_1inch.png`,
     url: "https://app.1inch.io/",
     networks: ["Ethereum"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-5",
     name: "XDSea",
-    description:
-      "XDSea는 XDC 네트워크에 구축된 NFT를 사고 파는 세계 최초이자 최대 규모의 P2P 분산형 시장입니다.",
+    description: {
+      ko: "XDSea는 XDC 네트워크에 구축된 NFT를 사고 파는 세계 최초이자 최대 규모의 P2P 분산형 시장입니다.",
+      en: "XDSea is the world's first and largest peer-to-peer decentralized marketplace for buying and selling NFTs built on the XDC Network.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_xdsea.png`,
     url: "https://xdsea.com",
     networks: ["XDC Network"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-6",
     name: "Compound",
-    description:
-      "Compound는 담보를 통해 이자를 얻거나 자산을 빌릴 수 있는 이더리움 기반의 머니 마켓 프로토콜입니다. 컴파운드의 유동성 풀에 자산을 공급하면 복리이자를 얻을 수 있습니다.",
+    description: {
+      ko: "Compound는 담보를 통해 이자를 얻거나 자산을 빌릴 수 있는 이더리움 기반의 머니 마켓 프로토콜입니다. 컴파운드의 유동성 풀에 자산을 공급하면 복리이자를 얻을 수 있습니다.",
+      en: "Compound is Ethereum's algorithmic money market protocol that allows users to earn interest or borrow assets through collateral. Anyone can supply assets to Compound's liquidity pool and earn continuous compound interest immediately.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_compound.png`,
     url: "https://app.compound.finance/",
     networks: ["Ethereum"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-7",
     name: "PoolTogether",
-    description:
-      "PoolTogether는 저축을 재미있게 하는 이더리움 기반의 서비스입니다. 자산을 예치하면 \"저축 티켓\"을 받아 '풀'에 참여합니다. 각 저축 티켓은 풀에서 발생한 이자를 받을 수있는 기회를 제공하지만, 당첨되지 않더라도 손실이 없습니다.",
+    description: {
+      ko: "PoolTogether는 저축을 재미있게 하는 이더리움 기반의 서비스입니다. 자산을 예치하면 \"저축 티켓\"을 받아 '풀'에 참여합니다. 각 저축 티켓은 풀에서 발생한 이자를 받을 수있는 기회를 제공하지만, 당첨되지 않더라도 손실이 없습니다.",
+      en: 'PoolTogether is an Ethereum based application that makes saving money as fun as a game. You join a pool by getting a "savings ticket". Each Savings Ticket gives you a chance to win a prize, but even if you don\'t win, you keep all your money!',
+    },
     iconUrl: `${IMAGE_BASE}/icon_pooltogether.png`,
     url: "https://app.pooltogether.com/",
     networks: ["Ethereum"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-8",
     name: "OpenSea",
-    description:
-      "OpenSea는 수집품, 게임 아이템, 디지털 아트와 같은 이더리움 기반의 디지털 상품 및 디지털 자산을 거래할 수 있는 마켓 플레이스입니다.",
+    description: {
+      ko: "OpenSea는 수집품, 게임 아이템, 디지털 아트와 같은 이더리움 기반의 디지털 상품 및 디지털 자산을 거래할 수 있는 마켓 플레이스입니다.",
+      en: "OpenSea is a marketplace for digital goods, including collectibles, game items, digital art, and other digital assets backed by blockchain such as Ethereum.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_opensea.png`,
     url: "https://opensea.io/",
     networks: ["Ethereum", "Polygon"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko", "en"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
   {
     id: "service-9",
     name: "BlueWhale",
-    description:
-      "블루웨일 프로토콜은 사용하기 쉬운 디파이 서비스를 지향하는 프로젝트입니다. 디파이 대시보드, DEX 어그리게이터, 자동 재예치 서비스 등 탈중앙화 금융(DeFi) 관련 서비스 제공을 통해 클레이튼 디파이 생태계 활동을 더 쉽고 효율적으로 만듭니다.",
+    description: {
+      ko: "블루웨일 프로토콜은 사용하기 쉬운 디파이 서비스를 지향하는 프로젝트입니다. 디파이 대시보드, DEX 어그리게이터, 자동 재예치 서비스 등 탈중앙화 금융(DeFi) 관련 서비스 제공을 통해 클레이튼 디파이 생태계 활동을 더 쉽고 효율적으로 만듭니다.",
+      en: "BlueWhale Protocol is a project aimed at easy-to-use DeFi services. It provides DeFi-related services such as DeFi dashboard, DEX aggregator, and automatic re-staking to make Klaytn DeFi ecosystem activities easier and more efficient.",
+    },
     iconUrl: `${IMAGE_BASE}/icon_bluewhale.png`,
     url: "https://bwpm.io/",
     networks: ["Kaia"],
-    languages: ["ko"],
+    supportedPlatforms: ["android", "ios"],
+    supportedLanguages: ["ko"],
+    supportedEnvironments: ["development", "staging", "production"],
   },
 ];
 
