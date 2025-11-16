@@ -1,0 +1,27 @@
+.banner-slider {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.banner-slider .swiper {
+  width: 100%;
+}
+
+.banner-slider .swiper-pagination {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  left: auto;
+  top: auto;
+  width: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.banner-slider .swiper-pagination-fraction {
+  width: auto;
+}
