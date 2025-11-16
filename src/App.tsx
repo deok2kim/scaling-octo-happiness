@@ -5,6 +5,7 @@ import FavoritesSection from "./components/Favorites/FavoritesSection";
 import FavoritesSkeleton from "./components/Favorites/FavoritesSkeleton";
 import ServiceList from "./components/ServiceList/ServiceList";
 import ServiceListSkeleton from "./components/ServiceList/ServiceListSkeleton";
+import ToastContainer from "./components/common/ToastContainer";
 import "./App.css";
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
       <Suspense fallback={<ServiceListSkeleton />}>
         <ServiceList />
       </Suspense>
+
+      <ToastContainer />
     </div>
   );
 }

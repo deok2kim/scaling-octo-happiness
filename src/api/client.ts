@@ -122,8 +122,11 @@ export const apiClient = {
 
   deleteFavorite: async (favoriteId: string): Promise<void> => {
     if (config.isDevelopment) {
-      await delay(300);
-      // dev 환경에서는 성공으로 간주
+      await delay(800);
+      // dev 환경에서는 50% 확률로 실패
+      if (Math.random() < 0.5) {
+        throw new Error("즐겨찾기 삭제에 실패했습니다");
+      }
       return;
     }
 
